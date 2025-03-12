@@ -8,6 +8,7 @@ import {
   getAllRiders,
 } from "../../server/routes";
 import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 const statusOptions = ["Pending", "Cancelled", "Delivered", "Processing"];
 
@@ -24,6 +25,7 @@ const OrderTable = () => {
     );
   };
 
+  const router = useRouter();
   useEffect(() => {
     const user = localStorage.getItem("jc-store-partner");
     if (user) {
@@ -36,6 +38,9 @@ const OrderTable = () => {
         .catch((err) => {
           console.error(err);
         });
+    } else {
+      toast.warn("please login first");
+      router.push("/");
     }
   }, []);
 
