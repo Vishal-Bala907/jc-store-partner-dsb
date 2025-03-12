@@ -1,3 +1,4 @@
+"use client"
 import React from "react";
 import Order from "./Order";
 import orders from "../../layouts/orders";

@@ -43,6 +43,7 @@ export const assignOrderToRider = async (orderId, riderId, shopId) => {
   }
 };
 
+
 export const addRiderApi = async (formData, partnerId) => {
   try {
     const response = await apiClient.post(
@@ -50,6 +51,27 @@ export const addRiderApi = async (formData, partnerId) => {
       formData
     );
     console.log("rider api response", response);
+    return response.data;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const fetchOrders = async (zipCode, page) => {
+  try {
+    const response = await apiClient.get(
+      `/api/partners/orders/zip/${zipCode}?page=${page}&limit=${25}`
+    );
+    // console.log(response);
+    return response.data;
+  } catch (err) {
+    throw err;
+  }
+};
+export const updateOrder = async (id, status) => {
+  try {
+    const response = await apiClient.put(`/api/partners/update/${id}`, status);
+    // console.log(response);
     return response.data;
   } catch (err) {
     throw err;

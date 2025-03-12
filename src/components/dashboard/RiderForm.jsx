@@ -57,10 +57,12 @@ const RiderForm = () => {
       setFormData({ ...formData, [name]: value });
     }
   };
-const user = localStorage.getItem("jc-store-partner");
-const partnerId = JSON.parse(user)._id
+var user = localStorage.getItem("jc-store-partner");
+var partnerId ;
 console.log('partnerId', partnerId);
-
+useEffect( () => {
+if(user){partnerId = JSON.parse(user)._id;}
+},[])
   const handleSubmit = async (e) => {
 
     e.preventDefault();
