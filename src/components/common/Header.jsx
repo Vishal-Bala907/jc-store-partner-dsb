@@ -15,6 +15,9 @@ const Header = () => {
             <Link href="/dashboard">DashBoard</Link>
           </li>
           <li className="hover:underline">
+            <Link href="/add-rider-form">Add Rider</Link>
+          </li>
+          <li className="hover:underline">
             <a href="#">Orders</a>
           </li>
           <li>

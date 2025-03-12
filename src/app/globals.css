@@ -4,7 +4,9 @@
   --background: #ffffff;
   --foreground: #171717;
 }
-
+@theme {
+  --color-customPink: oklch(59.97% 0.2423 357.03)
+}
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

@@ -42,3 +42,16 @@ export const assignOrderToRider = async (orderId, riderId, shopId) => {
     throw err;
   }
 };
+
+export const addRiderApi = async (formData, partnerId) => {
+  try {
+    const response = await apiClient.post(
+      `/api/rider/add-rider/${partnerId}`,
+      formData
+    );
+    console.log("rider api response", response);
+    return response.data;
+  } catch (err) {
+    throw err;
+  }
+};
