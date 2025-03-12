@@ -29,9 +29,7 @@ const Header = () => {
           <li className="hover:underline">
             <Link href="/add-rider-form">Add Rider</Link>
           </li>
-          <li className="hover:underline">
-            <Link href="/add-rider-form">Add Rider</Link>
-          </li>
+        
           <li className="hover:underline">
             <Link href="/orders">Orders</Link>
           </li>
