@@ -4,6 +4,8 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { FaRegUserCircle } from "react-icons/fa";
+import { IoMdExit } from "react-icons/io";
 
 const Header = () => {
   const router = useRouter();
@@ -18,8 +20,8 @@ const Header = () => {
   };
   return (
     <header>
-      <nav className="bg-[#72003f] py-4  mx-10">
-        <ul className="flex lg:justify-end justify-center gap-5 mx-3 bg-[#72003f]">
+      <nav className="bg-customPink py-4  mx-10">
+        <ul className="flex lg:justify-end justify-center items-center gap-5 mx-3 ">
           <li>
             <Image src={"/img/logo/lg.png"} alt="logo" width={50} height={50} />
           </li>
@@ -29,19 +31,28 @@ const Header = () => {
           <li className="hover:underline">
             <Link href="/add-rider-form">Add Rider</Link>
           </li>
-        
+
           <li className="hover:underline">
             <Link href="/orders">Orders</Link>
           </li>
           <li className="hover:underline">
             <Link href="/riders">Our Riders</Link>
           </li>
-          <li>
-            <a href="#">Profile Image</a>
+          <li
+            className=" hover:cursor-pointer flex  gap-1 flex-row items-center justify-center "
+            title="Login / Profile"
+          >
+            <Link href="/profile">Profile</Link>
+            <FaRegUserCircle />
           </li>
           <li>
-            <button className="hover:cursor-pointer" onClick={handleLogOut}>
+            <button
+              className="hover:cursor-pointer flex  gap-1 flex-row items-center justify-center"
+              title="Logout"
+              onClick={handleLogOut}
+            >
               Logout
+              <IoMdExit />
             </button>
           </li>
         </ul>
