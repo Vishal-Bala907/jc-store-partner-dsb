@@ -17,10 +17,10 @@ const RiderDetails = ({ rider }) => {
     );
 
   return (
-    <div className="flex justify-center items-center h-fit bg-gray-100 p-4">
+    <div className="flex justify-center items-center h-fit border-gray-300 p-4">
       <Box className="max-w-lg w-full p-6 bg-white shadow-lg rounded-2xl">
         <Box>
-          <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2 border-b-1 text-center">
+          <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2 border-gray-300 border-b-1 text-center">
             <FaUser className="text-blue-500" /> {rider.fullName}
           </h2>
           {/* <p className="text-gray-600 text-sm ">

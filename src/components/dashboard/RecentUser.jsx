@@ -64,7 +64,7 @@ const OrderTable = () => {
   };
 
   return (
-    <div className="overflow-x-auto mx-10">
+    <div className="overflow-x-auto mx-10 my-10">
       <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
         <thead>
           <tr className="bg-gray-100 text-gray-700 text-left">

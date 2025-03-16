@@ -10,8 +10,9 @@ const data = [
   { product: "prod 6", Qty: 89 },
   { product: "prod 7", Qty: 49 },
 ];
-const WeeklyOrders = () => {
+const WeeklyOrders = ({ dsbData }) => {
   const canvasRef = useRef(null);
+  console.log(dsbData);
 
   useEffect(() => {
     const ctx = canvasRef.current?.getContext("2d");
@@ -21,11 +22,11 @@ const WeeklyOrders = () => {
     const chart = new Chart(ctx, {
       type: "line",
       data: {
-        labels: data.map((row) => row.product),
+        labels: dsbData.map((row) => row._id),
         datasets: [
           {
-            label: "Acquisitions by year",
-            data: data.map((row) => row.Qty),
+            label: "Previous Week Most Selling Product",
+            data: dsbData.map((row) => row.count),
             borderColor: "#FFA725",
             backgroundColor: "rgba(76, 175, 80, 0.2)",
             tension: 0.4,
@@ -53,7 +54,7 @@ const WeeklyOrders = () => {
   }, []);
 
   return (
-    <div className="lg:w-[40%] w-[100%] mx-10 my-8 bg-white">
+    <div className="lg:w-[100%] w-[100%] mx-10 my-8 bg-white">
       <canvas ref={canvasRef}></canvas>;
     </div>
   );

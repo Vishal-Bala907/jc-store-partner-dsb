@@ -43,7 +43,6 @@ export const assignOrderToRider = async (orderId, riderId, shopId) => {
   }
 };
 
-
 export const addRiderApi = async (formData, partnerId) => {
   try {
     const response = await apiClient.post(
@@ -71,6 +70,26 @@ export const fetchOrders = async (zipCode, page) => {
 export const updateOrder = async (id, status) => {
   try {
     const response = await apiClient.put(`/api/partners/update/${id}`, status);
+    // console.log(response);
+    return response.data;
+  } catch (err) {
+    throw err;
+  }
+};
+export const getIncomeAndCountData = async (storeId) => {
+  try {
+    const response = await apiClient.get(
+      `/api/partners/store/${storeId}/stats`
+    );
+    // console.log(response);
+    return response.data;
+  } catch (err) {
+    throw err;
+  }
+};
+export const getBestSeller = async () => {
+  try {
+    const response = await apiClient.get(`api/orders/best-seller/chart`);
     // console.log(response);
     return response.data;
   } catch (err) {
