@@ -6,6 +6,7 @@ const IncomeCards = ({ icm }) => {
   // console.log(Object.values(icm));
 
   const [data, setData] = useState(Object.values(icm));
+  console.log(data);
 
   return (
     <div className="flex flex-row justify-center items-center gap-6 my-9 mx-10 flex-wrap">

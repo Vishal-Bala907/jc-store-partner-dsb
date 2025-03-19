@@ -7,6 +7,8 @@ const Orders = ({ count }) => {
   const countArray = Object.values(count);
 
   const [data, setData] = useState(countArray);
+  console.log(data);
+
   return (
     <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4 mx-10">
       {orders.map((item, index) => {

@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Select, MenuItem } from "@mui/material";
 import {
   assignOrderToRider,
@@ -66,21 +66,47 @@ const OrderTable = () => {
       });
   };
 
-  const handleRiderAssignment = (riderId, orderId) => {
-    const user = localStorage.getItem("jc-store-partner");
-    if (user) {
-      const USER = JSON.parse(user);
-      assignOrderToRider(orderId, riderId, USER._id)
-        .then((data) => {
-          toast.success(data.message, { position: "top-center" });
-          fetchOrders(USER.partner.pinCode, page); // Refresh orders
-        })
-        .catch((err) => {
-          toast.error(err.response?.data?.message || "Error assigning rider", {
-            position: "top-center",
+  const handleRiderAssignment = useCallback(
+    async (riderId, orderId) => {
+      const user = localStorage.getItem("jc-store-partner");
+      if (user) {
+        const USER = JSON.parse(user);
+        assignOrderToRider(orderId, riderId, USER._id)
+          .then((data) => {
+            toast.success(data.message, { position: "top-center" });
+            fetchOrders(USER.partner.pinCode, page)
+              .then((data) => {
+                // console.log(data.totalPages);
+
+                setOrders(data.orders);
+                setTotalPages(data.totalPages);
+                setRiders(USER.partner.riders);
+              })
+              .catch((err) => {
+                console.error(err);
+                toast.error(err.response.data.message);
+              }); // Refresh orders
+          })
+          .catch((err) => {
+            toast.error(
+              err.response?.data?.message || "Error assigning rider",
+              {
+                position: "top-center",
+              }
+            );
           });
-        });
+      }
+    },
+    [orders, page, riders]
+  );
+
+  const formatDataAndTime = (time) => {
+    if (!time) {
+      return "";
     }
+    const DATE = time.split("T")[0];
+    const TIME = time.split("T")[1].split(".")[0];
+    return `${DATE} - ${TIME}`;
   };
 
   if (loading) {
@@ -111,7 +137,9 @@ const OrderTable = () => {
               }`}
             >
               <td className="py-3 px-5">{order.invoice}</td>
-              <td className="py-3 px-5">{order.createdAt}</td>
+              <td className="py-3 px-5">
+                {formatDataAndTime(order.createdAt)}
+              </td>
               <td className="py-3 px-5">{order.user_info.name}</td>
               <td className="py-3 px-5">{order.paymentMethod}</td>
               <td className="py-3 px-5">{order.total}</td>

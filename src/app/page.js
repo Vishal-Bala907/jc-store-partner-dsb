@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { loginStorePartner } from "../server/routes";
+import { toast } from "react-toastify";
 
 export default function Home() {
   const router = useRouter();
@@ -25,7 +26,7 @@ export default function Home() {
       email,
       password,
     };
-    console.log(USER);
+    // console.log(USER);
 
     loginStorePartner(USER)
       .then((data) => {
@@ -33,7 +34,7 @@ export default function Home() {
         router.push("/dashboard");
       })
       .catch((err) => {
-        console.error(data);
+        toast.error(err.response.data.error);
       });
   };
 

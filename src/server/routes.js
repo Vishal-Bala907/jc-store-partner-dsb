@@ -22,7 +22,7 @@ export const getAllOrders = async (zipCode) => {
     throw err;
   }
 };
-export const getAllRiders = async (zipCode) => {
+export const getAllRiders = async () => {
   try {
     const response = await apiClient.get(`/api/rider/get-all-riders`);
     // console.log(response);
@@ -44,6 +44,8 @@ export const assignOrderToRider = async (orderId, riderId, shopId) => {
 };
 
 export const addRiderApi = async (formData, partnerId) => {
+  console.log(formData);
+
   try {
     const response = await apiClient.post(
       `/api/rider/add-rider/${partnerId}`,
@@ -90,6 +92,15 @@ export const getIncomeAndCountData = async (storeId) => {
 export const getBestSeller = async () => {
   try {
     const response = await apiClient.get(`api/orders/best-seller/chart`);
+    // console.log(response);
+    return response.data;
+  } catch (err) {
+    throw err;
+  }
+};
+export const getAllRidersOfTheStore = async (id) => {
+  try {
+    const response = await apiClient.get(`/api/partners/partner/rider/${id}`);
     // console.log(response);
     return response.data;
   } catch (err) {

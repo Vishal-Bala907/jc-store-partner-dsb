@@ -29,6 +29,8 @@ const Dashboard = () => {
       })
       .finally(() => setLoading(false));
   }, []);
+  console.log(dsbData);
+
   return (
     <div>
       {loading ? (

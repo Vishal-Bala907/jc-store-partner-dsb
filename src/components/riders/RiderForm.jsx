@@ -1,12 +1,12 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { toast } from "react-toastify";
 import { addRiderApi } from "../../server/routes";
-
 
 const RiderForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [loading, setLoading] = useState(false);
+  // const [is, setId] = useState();
 
   const [formData, setFormData] = useState({
     username: "",
@@ -57,57 +57,101 @@ const RiderForm = () => {
       setFormData({ ...formData, [name]: value });
     }
   };
-var user = localStorage.getItem("jc-store-partner");
-var partnerId ;
-console.log('partnerId', partnerId);
-useEffect( () => {
-if(user){partnerId = JSON.parse(user)._id;}
-},[])
-  const handleSubmit = async (e) => {
 
+  // var user = localStorage.getItem("jc-store-partner");
+  // var partnerId;
+  // console.log("partnerId", partnerId);
+  // useEffect(() => {
+  //   if (user) {
+  //     partnerId = JSON.parse(user)._id;
+  //   }
+  // }, []);
+  // console.log(formData);
+
+  const handleSubmit = useCallback((e) => {
     e.preventDefault();
-    setIsSubmitting(true);
-
-    try {
-      if (user) {
-        // console.log();
-        await addRiderApi(formData, partnerId)
-          .then((data) => {
-            toast.success(data.message, {
-              position: "top-center",
-            });
-          })
-          .catch((err) => {
-            toast.error(err.response.data.message, {
-              position: "top-center",
-            });
-          });
-      }
- 
-      setFormData({
-        username: "",
-        password: "",
-        fullName: "",
-        phoneNumber: "",
-        email: "",
-        aadharNumber: "",
-        panNumber: "",
-        bikeLicenceNumber: "",
-        status: false,
-        address: {
-          street: "",
-          city: "",
-          state: "",
-          postalCode: "",
-        },
-      });
-    } catch (error) {
-      console.error("Error:", error);
-      toast.error(error.response?.data?.message || "Something went wrong!");
-    } finally {
-      setIsSubmitting(false);
+    const user = localStorage.getItem("jc-store-partner");
+    if (!user) {
+      toast.warn("please login first");
+      router.push("/");
+      return;
     }
-  };
+    const USER = JSON.parse(user);
+    console.log(formData);
+
+    addRiderApi(formData, USER.partner._id)
+      .then((data) => {
+        toast.success(data.message, {
+          position: "top-center",
+        });
+        setFormData({
+          username: "",
+          password: "",
+          fullName: "",
+          phoneNumber: "",
+          email: "",
+          aadharNumber: "",
+          panNumber: "",
+          bikeLicenceNumber: "",
+          status: false,
+          address: {
+            street: "",
+            city: "",
+            state: "",
+            postalCode: "",
+          },
+        });
+      })
+      .catch((err) => {
+        toast.error(err.response.data.message, {
+          position: "top-center",
+        });
+      });
+  }, []);
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   setIsSubmitting(true);
+
+  //   try {
+  //     if (user) {
+  //       // console.log();
+  //       addRiderApi(formData, partnerId)
+  //         .then((data) => {
+  //           toast.success(data.message, {
+  //             position: "top-center",
+  //           });
+  //           setFormData({
+  //             username: "",
+  //             password: "",
+  //             fullName: "",
+  //             phoneNumber: "",
+  //             email: "",
+  //             aadharNumber: "",
+  //             panNumber: "",
+  //             bikeLicenceNumber: "",
+  //             status: false,
+  //             address: {
+  //               street: "",
+  //               city: "",
+  //               state: "",
+  //               postalCode: "",
+  //             },
+  //           });
+  //         })
+  //         .catch((err) => {
+  //           toast.error(err.response.data.message, {
+  //             position: "top-center",
+  //           });
+  //         });
+  //     }
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //     toast.error(error.response?.data?.message || "Something went wrong!");
+  //   } finally {
+  //     setIsSubmitting(false);
+  //   }
+  // };
 
   // Form field structure based on API requirements
   const formFields = [

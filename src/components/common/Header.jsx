@@ -25,34 +25,44 @@ const Header = () => {
           <li>
             <Image src={"/img/logo/lg.png"} alt="logo" width={50} height={50} />
           </li>
-          <li className="hover:underline">
-            <Link href="/dashboard">DashBoard</Link>
+          <li className="hover:underline ">
+            <Link href="/dashboard" className="text-white font-bold">
+              DashBoard
+            </Link>
           </li>
           <li className="hover:underline">
-            <Link href="/add-rider-form">Add Rider</Link>
+            <Link href="/add-rider-form" className="text-white font-bold">
+              Add Rider
+            </Link>
           </li>
 
           <li className="hover:underline">
-            <Link href="/orders">Orders</Link>
+            <Link href="/orders" className="text-white font-bold">
+              Orders
+            </Link>
           </li>
           <li className="hover:underline">
-            <Link href="/riders">Our Riders</Link>
+            <Link href="/riders" className="text-white font-bold">
+              Our Riders
+            </Link>
           </li>
           <li
             className=" hover:cursor-pointer flex  gap-1 flex-row items-center justify-center "
             title="Login / Profile"
           >
-            <Link href="/profile">Profile</Link>
-            <FaRegUserCircle />
+            <Link href="/profile" className="text-white font-bold">
+              {/* Profile */}
+              <FaRegUserCircle className="text-white text-3xl" />
+            </Link>
           </li>
           <li>
             <button
-              className="hover:cursor-pointer flex  gap-1 flex-row items-center justify-center"
+              className="hover:cursor-pointer flex  gap-1 flex-row items-center justify-center text-white font-bold"
               title="Logout"
               onClick={handleLogOut}
             >
               Logout
-              <IoMdExit />
+              <IoMdExit className="text-white text-3xl" />
             </button>
           </li>
         </ul>
