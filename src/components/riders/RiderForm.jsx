@@ -68,46 +68,49 @@ const RiderForm = () => {
   // }, []);
   // console.log(formData);
 
-  const handleSubmit = useCallback((e) => {
-    e.preventDefault();
-    const user = localStorage.getItem("jc-store-partner");
-    if (!user) {
-      toast.warn("please login first");
-      router.push("/");
-      return;
-    }
-    const USER = JSON.parse(user);
-    console.log(formData);
+  const handleSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      const user = localStorage.getItem("jc-store-partner");
+      if (!user) {
+        toast.warn("please login first");
+        router.push("/");
+        return;
+      }
+      const USER = JSON.parse(user);
+      console.log(formData);
 
-    addRiderApi(formData, USER.partner._id)
-      .then((data) => {
-        toast.success(data.message, {
-          position: "top-center",
+      addRiderApi(formData, USER.partner._id)
+        .then((data) => {
+          toast.success(data.message, {
+            position: "top-center",
+          });
+          setFormData({
+            username: "",
+            password: "",
+            fullName: "",
+            phoneNumber: "",
+            email: "",
+            aadharNumber: "",
+            panNumber: "",
+            bikeLicenceNumber: "",
+            status: false,
+            address: {
+              street: "",
+              city: "",
+              state: "",
+              postalCode: "",
+            },
+          });
+        })
+        .catch((err) => {
+          toast.error(err.response.data.message, {
+            position: "top-center",
+          });
         });
-        setFormData({
-          username: "",
-          password: "",
-          fullName: "",
-          phoneNumber: "",
-          email: "",
-          aadharNumber: "",
-          panNumber: "",
-          bikeLicenceNumber: "",
-          status: false,
-          address: {
-            street: "",
-            city: "",
-            state: "",
-            postalCode: "",
-          },
-        });
-      })
-      .catch((err) => {
-        toast.error(err.response.data.message, {
-          position: "top-center",
-        });
-      });
-  }, []);
+    },
+    [formData]
+  );
 
   // const handleSubmit = async (e) => {
   //   e.preventDefault();
