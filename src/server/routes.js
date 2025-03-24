@@ -61,7 +61,7 @@ export const addRiderApi = async (formData, partnerId) => {
 export const fetchOrders = async (zipCode, page) => {
   try {
     const response = await apiClient.get(
-      `/api/partners/orders/zip/${zipCode}?page=${page}&limit=${10}`
+      `/api/partners/orders/zip/${zipCode}?page=${page}&limit=${100}`
     );
     // console.log(response);
     return response.data;
