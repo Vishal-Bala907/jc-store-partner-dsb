@@ -26,7 +26,7 @@ const ProfileCard = () => {
       router.push("/");
     }
     const USER = JSON.parse(user);
-    console.log(USER);
+    // console.log(USER);
     setProfile(USER);
     setPartner(USER.partner);
   }, []);

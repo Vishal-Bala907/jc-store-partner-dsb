@@ -1,14 +1,36 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 // import logo from "/img/logo/lg.png";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FaRegUserCircle } from "react-icons/fa";
 import { IoMdExit } from "react-icons/io";
+import socket from "../../utils/socket";
+import { toast } from "react-toastify";
 
 const Header = () => {
   const router = useRouter();
+  useEffect(() => {
+    const user = localStorage.getItem("jc-store-partner");
+    if (!user) {
+      toast.warn("please login first");
+      router.push("/");
+      return;
+    }
+    const USER = JSON.parse(user);
+    const handleOrderReceived = (data) => {
+      if (USER.partner.pinCode === data.pincode) {
+        toast.success(`🚀 New order received from ${data.user} `);
+      }
+    };
+
+    socket.on("order-received", handleOrderReceived);
+
+    return () => {
+      socket.off("order-received", handleOrderReceived); // ✅ Cleanup listener on unmount
+    };
+  }, []);
   const handleLogOut = () => {
     const user = localStorage.getItem("jc-store-partner");
     if (user) {
