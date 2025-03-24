@@ -61,7 +61,18 @@ export const addRiderApi = async (formData, partnerId) => {
 export const fetchOrders = async (zipCode, page) => {
   try {
     const response = await apiClient.get(
-      `/api/partners/orders/zip/${zipCode}?page=${page}&limit=${25}`
+      `/api/partners/orders/zip/${zipCode}?page=${page}&limit=${10}`
+    );
+    // console.log(response);
+    return response.data;
+  } catch (err) {
+    throw err;
+  }
+};
+export const fetchPendingOrders = async (zipCode, page) => {
+  try {
+    const response = await apiClient.get(
+      `/api/partners/orders/zip/${zipCode}/pending?page=${page}&limit=${10}`
     );
     // console.log(response);
     return response.data;

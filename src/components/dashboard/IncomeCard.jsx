@@ -11,9 +11,9 @@ const IncomeCard = ({ color, icon, text, price }) => {
     >
       <img src={icon} alt="icon" />
       <h1 className="text-2xl font-bold">{text}</h1>
-      <div className="flex items-center gap-2">
+      <div className="flex gap-2 items-center">
         <h1 className="text-2xl font-bold">$</h1>
-        <h1 className="text-2xl font-bold">0</h1>
+        <h1 className="text-2xl font-bold">{price}</h1>
       </div>
     </div>
   );

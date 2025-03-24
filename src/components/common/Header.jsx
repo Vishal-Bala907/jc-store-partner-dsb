@@ -37,6 +37,11 @@ const Header = () => {
           </li>
 
           <li className="hover:underline">
+            <Link href="/pending-orders" className="text-white font-bold">
+              Pending Orders
+            </Link>
+          </li>
+          <li className="hover:underline">
             <Link href="/orders" className="text-white font-bold">
               Orders
             </Link>

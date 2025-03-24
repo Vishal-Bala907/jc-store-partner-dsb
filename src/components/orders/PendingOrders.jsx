@@ -1,25 +1,26 @@
 "use client";
+// import React from "react";
 import React, { useCallback, useEffect, useState } from "react";
 import { Select, MenuItem } from "@mui/material";
-import { RiArrowLeftRightLine } from "react-icons/ri";
 import {
   assignOrderToRider,
   fetchOrders,
+  fetchPendingOrders,
   getAllRiders,
   updateOrder,
 } from "../../server/routes";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import ScaleLoaderSpinner from "../spinners/ScaleLoaderSpinner";
-
-const statusOptions = ["Pending", "Cancelled", "Delivered", "Processing"];
+import { RiArrowLeftRightLine } from "react-icons/ri";
 import { GoDotFill } from "react-icons/go";
-const OrderTable = () => {
+const PendingOrders = () => {
   const [orders, setOrders] = useState([]);
   const [riders, setRiders] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [arrange, setArrange] = useState(0);
   const limit = 5; // Number of records per page
 
   const router = useRouter();
@@ -30,7 +31,7 @@ const OrderTable = () => {
     if (user) {
       setLoading(true);
       const USER = JSON.parse(user);
-      fetchOrders(USER.partner.pinCode, page)
+      fetchPendingOrders(USER.partner.pinCode, page)
         .then((data) => {
           // console.log(data.totalPages);
 
@@ -76,7 +77,7 @@ const OrderTable = () => {
         assignOrderToRider(orderId, riderId, USER._id)
           .then((data) => {
             toast.success(data.message, { position: "top-center" });
-            fetchOrders(USER.partner.pinCode, page)
+            fetchPendingOrders(USER.partner.pinCode, page)
               .then((data) => {
                 // console.log(data.totalPages);
 
@@ -109,6 +110,25 @@ const OrderTable = () => {
     const DATE = time.split("T")[0];
     const TIME = time.split("T")[1].split(".")[0];
     return `${DATE} - ${TIME}`;
+  };
+
+  const handleOrderArrangement = () => {
+    if (!orders || orders.length === 0) {
+      return; // Return if no orders exist
+    }
+
+    const sortedOrders = [...orders].sort((a, b) => {
+      if (arrange % 2 === 0) {
+        // Pending first, then Processing
+        return a.status === "Pending" && b.status === "Processing" ? -1 : 1;
+      } else {
+        // Processing first, then Pending
+        return a.status === "Processing" && b.status === "Pending" ? -1 : 1;
+      }
+    });
+
+    setOrders(sortedOrders);
+    setArrange(arrange + 1);
   };
 
   if (loading) {
@@ -146,7 +166,13 @@ const OrderTable = () => {
             <th className="px-5 py-3">Customer Name</th>
             <th className="px-5 py-3">Payment Method</th>
             <th className="px-5 py-3">Amount </th>
-            <th className="px-5 py-3 flex flex-row gap-2">Status</th>
+            <th className="px-5 py-3 flex flex-row gap-3 justify-center items-center">
+              Status{" "}
+              <RiArrowLeftRightLine
+                onClick={handleOrderArrangement}
+                className=" rotate-90 hover:cursor-pointer"
+              />{" "}
+            </th>
             <th className="px-5 py-3">Rider</th>
             <th className="px-5 py-3">Assign Order To Rider</th>
           </tr>
@@ -223,4 +249,4 @@ const OrderTable = () => {
   );
 };
 
-export default OrderTable;
+export default PendingOrders;

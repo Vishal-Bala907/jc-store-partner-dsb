@@ -72,7 +72,7 @@ const OrderTable = () => {
             <th className="py-3 px-5">Order Time</th>
             <th className="py-3 px-5">Customer Name</th>
             <th className="py-3 px-5">Payment Method</th>
-            <th className="py-3 px-5">Amount ($)</th>
+            <th className="py-3 px-5">Amount </th>
             <th className="py-3 px-5">Status</th>
             <th className="py-3 px-5">Rider</th>
             <th className="py-3 px-5">Assign Order To Rider</th>
