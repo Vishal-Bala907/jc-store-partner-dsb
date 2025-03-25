@@ -14,6 +14,7 @@ import ScaleLoaderSpinner from "../spinners/ScaleLoaderSpinner";
 
 const statusOptions = ["Pending", "Cancelled", "Delivered", "Processing"];
 import { GoDotFill } from "react-icons/go";
+import NotFoundPage from "../not-found/NotFoundPage";
 const OrderTable = () => {
   const [orders, setOrders] = useState([]);
   const [riders, setRiders] = useState([]);
@@ -117,6 +118,10 @@ const OrderTable = () => {
         <ScaleLoaderSpinner />
       </div>
     );
+  }
+
+  if (!orders || orders.length === 0) {
+    return <NotFoundPage message="No orders found" />;
   }
 
   return (

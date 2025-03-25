@@ -5,7 +5,8 @@
   --foreground: #171717;
 }
 @theme {
-  --color-customPink: oklch(59.97% 0.2423 357.03)
+  --color-customPink: oklch(59.97% 0.2423 357.03);
+  --shadow-button: 0px 0px 5px #000000, inset 0px 0px 10px #00000087;
 }
 @theme inline {
   --color-background: var(--background);

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import RiderDetails from "./RiderDetails";
 import { getAllRidersOfTheStore } from "../../server/routes";
 import ScaleLoaderSpinner from "../spinners/ScaleLoaderSpinner";
+import NotFoundPage from "../not-found/NotFoundPage";
 
 const RiderWrapper = () => {
   const [riders, setRiders] = useState([]);
@@ -27,17 +28,13 @@ const RiderWrapper = () => {
     return <ScaleLoaderSpinner />;
   }
 
-  if (riders && riders.length < 1) {
-    return (
-      <div className="min-h-screen w-[100%] flex justify-center items-center text-5xl">
-        No Riders Yet ☹️☹️
-      </div>
-    );
+  if (!riders || riders.length < 1) {
+    return <NotFoundPage message="No Riders found" />;
   }
 
   return (
     <div className="mx-10 bg-white">
-      <div className="w-[100%] h-[100%] min-h-screen flex justify-start items-start">
+      <div className="w-[100%] h-[100%] min-h-screen flex flex-wrap gap-4 justify-center items-start ">
         {riders.map((rider, index) => {
           return <RiderDetails key={index} rider={rider} />;
         })}

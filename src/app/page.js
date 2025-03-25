@@ -1,10 +1,10 @@
 "use client";
 import { Button, Card, TextField } from "@mui/material";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { loginStorePartner } from "../server/routes";
 import { toast } from "react-toastify";
+import UpdateSpinner from "../components/spinners/UpdateSpinner";
 
 export default function Home() {
   const router = useRouter();
@@ -17,6 +17,7 @@ export default function Home() {
       router.push("/dashboard");
     }
   });
+  const [loading, setLoading] = useState(false);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -27,7 +28,7 @@ export default function Home() {
       password,
     };
     // console.log(USER);
-
+    setLoading(true);
     loginStorePartner(USER)
       .then((data) => {
         localStorage.setItem("jc-store-partner", JSON.stringify(data));
@@ -35,7 +36,8 @@ export default function Home() {
       })
       .catch((err) => {
         toast.error(err.response.data.error);
-      });
+      })
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -65,7 +67,7 @@ export default function Home() {
               fullWidth
               onClick={handleLogin}
             >
-              Login
+              {loading ? <UpdateSpinner /> : <p>Update Profile</p>}
             </Button>
           </form>
         </Card>

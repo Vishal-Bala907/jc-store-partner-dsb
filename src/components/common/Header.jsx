@@ -45,8 +45,8 @@ const Header = () => {
   };
   return (
     <header>
-      <nav className="bg-customPink py-4  mx-10">
-        <ul className="flex lg:justify-end justify-center items-center gap-5 mx-3 ">
+      <nav className="bg-customPink py-4 mx-0  md:mx-10">
+        <ul className="flex lg:justify-end justify-center items-center gap-5 mx-3 flex-wrap ">
           <li>
             <Image src={"/img/logo/lg.png"} alt="logo" width={50} height={50} />
           </li>

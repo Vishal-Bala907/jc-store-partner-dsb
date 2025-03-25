@@ -61,7 +61,7 @@ export const addRiderApi = async (formData, partnerId) => {
 export const fetchOrders = async (zipCode, page) => {
   try {
     const response = await apiClient.get(
-      `/api/partners/orders/zip/${zipCode}?page=${page}&limit=${100}`
+      `/api/partners/orders/zip/${zipCode}?page=${page}&limit=${10}`
     );
     // console.log(response);
     return response.data;
@@ -112,6 +112,27 @@ export const getBestSeller = async () => {
 export const getAllRidersOfTheStore = async (id) => {
   try {
     const response = await apiClient.get(`/api/partners/partner/rider/${id}`);
+    // console.log(response);
+    return response.data;
+  } catch (err) {
+    throw err;
+  }
+};
+export const deleteRider = async (id) => {
+  try {
+    const response = await apiClient.delete(`/api/rider/delete/${id}`);
+    // console.log(response);
+    return response.data;
+  } catch (err) {
+    throw err;
+  }
+};
+export const updatePartnerProfile = async (id, partner) => {
+  try {
+    const response = await apiClient.put(
+      `/api/partners/update/profile/${id}`,
+      partner
+    );
     // console.log(response);
     return response.data;
   } catch (err) {

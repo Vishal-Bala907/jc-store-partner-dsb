@@ -13,10 +13,12 @@ import {
   FaAddressBook,
 } from "react-icons/fa";
 import { toast } from "react-toastify";
+import UpdateProfile from "./UpdateProfile";
 
 const ProfileCard = () => {
   const [profile, setProfile] = useState({});
   const [partner, setPartner] = useState({});
+  const [showUpdateProfile, setShowUpdateProfile] = useState(false);
 
   const router = useRouter();
   useEffect(() => {
@@ -37,10 +39,9 @@ const ProfileCard = () => {
 
     return number.slice(0, 4).padStart(length, "*");
   };
-  console.log(profile);
-
+  // console.log(profile);
   return (
-    <div className=" bg-gray-100 flex items-center justify-center p-4 mx-10">
+    <div className=" bg-gray-100 flex items-center justify-center p-4 mx-0 md:mx-10 relative">
       <div className="bg-transparent shadow-lg rounded-lg max-w-md w-full p-6 backdrop-blur-3xl">
         <div className="flex items-center space-x-4">
           <FaUser className="text-pink-600 text-4xl" />
@@ -52,6 +53,13 @@ const ProfileCard = () => {
               text-white bg-green-500"
             >
               {partner.status}
+            </span>
+            <span
+              className="inline-block mt-1 px-3 py-1 text-sm font-medium rounded-full ms-5 
+              text-white bg-blue-500 hover:bg-blue-900 hover:text-white hover:cursor-pointer shadow-button"
+              onClick={() => setShowUpdateProfile(true)}
+            >
+              Update Profile
             </span>
           </div>
         </div>
@@ -111,6 +119,11 @@ const ProfileCard = () => {
           </div>
         </div>
       </div>
+      {showUpdateProfile && (
+        <div className="absolute  left-0 w-full h-full bg-black bg-opacity-50 ">
+          <UpdateProfile setShowUpdateProfile={setShowUpdateProfile} />
+        </div>
+      )}
     </div>
   );
 };

@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import ScaleLoaderSpinner from "../spinners/ScaleLoaderSpinner";
 import { RiArrowLeftRightLine } from "react-icons/ri";
 import { GoDotFill } from "react-icons/go";
+import NotFoundPage from "../not-found/NotFoundPage";
 const PendingOrders = () => {
   const [orders, setOrders] = useState([]);
   const [riders, setRiders] = useState([]);
@@ -137,6 +138,10 @@ const PendingOrders = () => {
         <ScaleLoaderSpinner />
       </div>
     );
+  }
+
+  if (!orders || orders.length === 0) {
+    return <NotFoundPage message="No pending orders found" />;
   }
 
   return (
