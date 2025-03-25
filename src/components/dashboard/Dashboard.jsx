@@ -42,7 +42,7 @@ const Dashboard = () => {
         </>
       )}
 
-      <Charts />
+      {/* <Charts /> */}
       <OrderTable />
     </div>
   );
