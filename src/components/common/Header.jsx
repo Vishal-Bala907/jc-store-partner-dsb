@@ -19,6 +19,9 @@ const Header = () => {
       return;
     }
     const USER = JSON.parse(user);
+    toast.success(`Welcome ${USER.partner.name}`);
+    console.log("socket");
+
     const handleOrderReceived = (data) => {
       if (USER.partner.pinCode === data.pincode) {
         toast.success(`🚀 New order received from ${data.user} `);
