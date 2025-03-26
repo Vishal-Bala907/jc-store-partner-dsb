@@ -139,3 +139,26 @@ export const updatePartnerProfile = async (id, partner) => {
     throw err;
   }
 };
+
+export const getMyNotifications = async (zipCode) => {
+  try {
+    const response = await apiClient.get(
+      `/api/store/notification/orders/${zipCode}`
+    );
+    // console.log(response);
+    return response.data;
+  } catch (err) {
+    throw err;
+  }
+};
+export const deleteMyNotifications = async (zipCode) => {
+  try {
+    const response = await apiClient.delete(
+      `/api/store/notification/orders/${zipCode}`
+    );
+    // console.log(response);
+    return response.data;
+  } catch (err) {
+    throw err;
+  }
+};

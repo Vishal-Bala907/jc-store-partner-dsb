@@ -5,7 +5,7 @@ import orders from "../../layouts/orders";
 
 const Orders = ({ count }) => {
   const countArray = Object.values(count);
-  console.log(countArray);
+  // console.log(countArray);
 
   const [data, setData] = useState(countArray);
   console.log(data);

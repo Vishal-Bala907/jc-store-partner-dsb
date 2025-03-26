@@ -1,12 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { Select, MenuItem } from "@mui/material";
-import recentOrders from "../../data/DummyRecentOrder";
-import {
-  assignOrderToRider,
-  getAllOrders,
-  getAllRiders,
-} from "../../server/routes";
+import { assignOrderToRider, getAllOrders } from "../../server/routes";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 
@@ -54,6 +49,14 @@ const OrderTable = () => {
           toast.success(data.message, {
             position: "top-center",
           });
+          getAllOrders(USER.partner.pinCode)
+            .then((data) => {
+              setRows(data);
+              setRiders(USER.partner.riders);
+            })
+            .catch((err) => {
+              console.error(err);
+            });
         })
         .catch((err) => {
           toast.error(err.response.data.message, {
@@ -65,6 +68,9 @@ const OrderTable = () => {
 
   return (
     <div className="overflow-x-auto mx-10 my-10">
+      <div>
+        <h3 className="font-bold">Recent Orders</h3>
+      </div>
       <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
         <thead>
           <tr className="bg-gray-100 text-gray-700 text-left">
@@ -92,21 +98,17 @@ const OrderTable = () => {
               <td className="py-3 px-5">{row.paymentMethod}</td>
               <td className="py-3 px-5">{row.total}</td>
               <td className="py-3 px-5">
-                <Select
+                <div
                   value={row.status}
                   onChange={(e) =>
                     handleStatusChange(row.invoice, e.target.value)
                   }
                   fullWidth
                   size="small"
-                  className="bg-white text-black"
+                  className=" text-black"
                 >
-                  {statusOptions.map((option) => (
-                    <MenuItem key={option} value={option}>
-                      {option}
-                    </MenuItem>
-                  ))}
-                </Select>
+                  {row.status}
+                </div>
               </td>
               <td className="py-3 px-5">{row.riderName}</td>
               <td className="py-3 px-5">

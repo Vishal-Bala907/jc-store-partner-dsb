@@ -1,18 +1,11 @@
 "use client";
 import React, { useCallback, useEffect, useState } from "react";
 import { Select, MenuItem } from "@mui/material";
-import { RiArrowLeftRightLine } from "react-icons/ri";
-import {
-  assignOrderToRider,
-  fetchOrders,
-  getAllRiders,
-  updateOrder,
-} from "../../server/routes";
+import { assignOrderToRider, fetchOrders } from "../../server/routes";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import ScaleLoaderSpinner from "../spinners/ScaleLoaderSpinner";
 
-const statusOptions = ["Pending", "Cancelled", "Delivered", "Processing"];
 import { GoDotFill } from "react-icons/go";
 import NotFoundPage from "../not-found/NotFoundPage";
 const OrderTable = () => {
@@ -51,23 +44,6 @@ const OrderTable = () => {
       router.push("/");
     }
   }, [page]); // Fetch orders whenever the page changes
-
-  // const handleStatusChange = (id, invoice, newStatus) => {
-  //   const status = { status: newStatus };
-  //   updateOrder(id, status)
-  //     .then((data) => {
-  //       setOrders((prevOrders) =>
-  //         prevOrders.map((order) =>
-  //           order.invoice === invoice ? { ...order, status: newStatus } : order
-  //         )
-  //       );
-  //       toast.success("Order Updated...");
-  //     })
-  //     .catch((err) => {
-  //       console.error(err);
-  //       toast.error("Something went wrong...");
-  //     });
-  // };
 
   const handleRiderAssignment = useCallback(
     async (riderId, orderId) => {
