@@ -1,0 +1,50 @@
+#wrapper {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+}
+
+#c {
+  width: 10px;
+  height: 10px;
+  background-color: rgba(255, 255, 255, 0.418);
+  border-radius: 50%;
+  position: absolute;
+  animation: fadeInOut 1.3s ease-in infinite;
+}
+
+#b {
+  width: 15px;
+  height: 15px;
+  background-color: rgba(255, 255, 255, 0.329);
+  border-radius: 50%;
+  position: absolute;
+  animation-delay: 0.5s;
+  animation: fadeInOut 1.5s ease-in infinite;
+}
+#a {
+  width: 20px;
+  height: 20px;
+  background-color: rgba(255, 255, 255, 0.089);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeInOut 2s ease-in infinite;
+  animation-delay: 1s;
+
+  /* animation: fadeInOut 1s ease-in-out infinite; */
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

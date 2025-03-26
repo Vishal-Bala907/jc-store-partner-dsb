@@ -10,6 +10,7 @@ import socket from "../../utils/socket";
 import { toast } from "react-toastify";
 import { IoNotificationsOutline } from "react-icons/io5";
 import Notification from "../notifications/Notifications";
+import Blinker from "../my-blinker/Blinker";
 
 const Header = () => {
   const router = useRouter();
@@ -89,8 +90,8 @@ const Header = () => {
           >
             {/* Profile */}
             <IoNotificationsOutline className="text-white text-3xl" />
-            <span className="absolute top-[-8px] right-[-15px] text-[.8em] fw-bold">
-              10+
+            <span className="absolute top-[-8px] right-[-4px] text-[.8em] fw-bold">
+              <Blinker />
             </span>
           </button>
           <li
