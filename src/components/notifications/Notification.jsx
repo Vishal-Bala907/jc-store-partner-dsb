@@ -22,11 +22,31 @@ const Notification = ({ notification }) => {
   };
 
   return (
-    <div className="px-2 py-3 rounded-lg bg-blue-200 border border-blue-900 shadow-md">
+    <div
+      className={`px-2 py-3 rounded-lg ${
+        notification.orderStatus === "placed"
+          ? "bg-blue-200"
+          : notification.orderStatus === "delivered"
+          ? "bg-green-200"
+          : "bg-red-200"
+      } bg-blue-200 border border-blue-900 shadow-md`}
+    >
       <div className="text-left flex  flex-row justify-between items-center border-b-2 border-pink-300">
         {/* <MdAccessTime className="text-white" />  */}
-        <p className="px-2 py-1 rounded-full bg-blue-900 text-white mb-1 text-[.6em]">
-          new order
+        <p
+          className={`px-2 py-1 rounded-full ${
+            notification.orderStatus === "placed"
+              ? "bg-blue-900"
+              : notification.orderStatus === "delivered"
+              ? "bg-green-900"
+              : "bg-red-900"
+          } text-white mb-1 text-[.6em]`}
+        >
+          {notification.orderStatus === "placed"
+            ? "New Order"
+            : notification.orderStatus === "delivered"
+            ? "Order Deleverd"
+            : "Order Cancled"}
         </p>
         <p> {formatDataAndTime(notification.createdAt)}</p>
       </div>

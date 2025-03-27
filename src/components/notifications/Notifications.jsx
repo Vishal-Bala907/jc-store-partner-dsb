@@ -125,8 +125,9 @@ const Notifications = ({ showNotifications }) => {
         <List
           height={400} // Visible height of the list
           itemCount={notifications.length} // Total number of notifications
-          itemSize={80} // Height of each notification item
+          itemSize={110} // Height of each notification item
           width="100%"
+          className="h-[100%]"
         >
           {Row}
         </List>

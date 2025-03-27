@@ -55,8 +55,9 @@ const RiderDetails = ({ rider }) => {
             <FaUser className="text-pink-500" /> {rider.fullName}
             <div className="text-red-700">
               <RiDeleteBin5Line
+                title="delete rider"
                 onClick={() => submit(rider._id)}
-                className="text-red-500 text-2xl"
+                className="text-red-500 text-2xl hover:scale-[1.2] transition-all hover:cursor-pointer "
               />
             </div>
           </h2>
