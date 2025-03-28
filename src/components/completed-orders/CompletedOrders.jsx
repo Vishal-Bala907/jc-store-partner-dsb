@@ -4,6 +4,7 @@ import ScaleLoaderSpinner from "../spinners/ScaleLoaderSpinner";
 import { getStoreCompletedOrders } from "../../server/routes";
 import NotFoundPage from "../not-found/NotFoundPage";
 import { GoDotFill } from "react-icons/go";
+import { toast } from "react-toastify";
 
 const CompletedOrders = () => {
   const [page, setPage] = useState(1);
