@@ -82,6 +82,11 @@ const Header = () => {
               Our Riders
             </Link>
           </li>
+          <li className="hover:underline">
+            <Link href="/completed" className="text-white font-bold">
+              Completed Orders
+            </Link>
+          </li>
           <button
             className="text-white  relative hover:cursor-pointer"
             onClick={() => {

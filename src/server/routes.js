@@ -162,3 +162,15 @@ export const deleteMyNotifications = async (zipCode) => {
     throw err;
   }
 };
+
+export const getStoreCompletedOrders = async (id, page) => {
+  try {
+    const response = await apiClient.get(
+      `/api/partners/partner/orders/${id}?page=${page}&limit=50`
+    );
+    // console.log(response);
+    return response.data;
+  } catch (err) {
+    throw err;
+  }
+};

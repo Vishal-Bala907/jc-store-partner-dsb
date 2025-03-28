@@ -22,6 +22,7 @@ const PendingOrders = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
   const [arrange, setArrange] = useState(0);
+  const [store, setStore] = useState(null);
   const limit = 5; // Number of records per page
 
   const router = useRouter();
@@ -32,6 +33,7 @@ const PendingOrders = () => {
     if (user) {
       setLoading(true);
       const USER = JSON.parse(user);
+      setStore(USER.partner);
       fetchPendingOrders(USER.partner.pinCode, page)
         .then((data) => {
           // console.log(data.totalPages);
@@ -146,22 +148,25 @@ const PendingOrders = () => {
 
   return (
     <div className="mx-10 my-5 overflow-x-auto">
-      <div className="flex flex-row justify-end gap-4 mb-3 items-center">
-        <span className="flex flex-row items-center">
-          <GoDotFill className="text-green-300" /> Deliverd
-        </span>
-        <span className="flex flex-row items-center">
-          <GoDotFill className="text-yellow-300" />
-          Pending
-        </span>
-        <span className="flex flex-row items-center">
-          <GoDotFill className="text-blue-300" />
-          Processing
-        </span>
-        <span className="flex flex-row items-center">
-          <GoDotFill className="text-red-300" />
-          Cancled
-        </span>
+      <div className="flex flex-row justify-between gap-4 mb-3 items-center">
+        <div>Processing/Pending Orders For The Pincode : {store.pinCode}</div>
+        <div className="flex flex-row gap-4">
+          <span className="flex flex-row items-center">
+            <GoDotFill className="text-green-300" /> Deliverd
+          </span>
+          <span className="flex flex-row items-center">
+            <GoDotFill className="text-yellow-300" />
+            Pending
+          </span>
+          {/* <span className="flex flex-row items-center">
+            <GoDotFill className="text-blue-300" />
+            Processing
+          </span>
+          <span className="flex flex-row items-center">
+            <GoDotFill className="text-red-300" />
+            Cancled
+          </span> */}
+        </div>
       </div>
       <table className="bg-white rounded-lg shadow-md min-w-full overflow-hidden">
         <thead>
@@ -236,9 +241,26 @@ const PendingOrders = () => {
         >
           Previous
         </button>
-        <span className="text-gray-700">
-          Page {page} of {totalPages}
+        <span>
+          <span className="text-gray-700">
+            Page {page} of {totalPages}
+          </span>
+
+          <span className="text-gray-700 border ms-8 border-gray-300 rounded-md px-4 py-2">
+            <input
+              type="number"
+              max={totalPages}
+              min={1}
+              value={page}
+              onChange={(e) => {
+                if (!(e.target.value > totalPages || e.target.value < 1)) {
+                  setPage(e.target.value);
+                }
+              }}
+            />
+          </span>
         </span>
+
         <button
           onClick={() => {
             setPage((prev) => (prev < totalPages ? prev + 1 : prev));
