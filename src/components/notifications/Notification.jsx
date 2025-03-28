@@ -18,7 +18,7 @@ const Notification = ({ notification }) => {
     }
     const DATE = time.split("T")[0];
     const TIME = time.split("T")[1].split(".")[0];
-    return `Date: ${DATE} - Time" ${TIME}`;
+    return `Date: ${DATE} - Time ${TIME}`;
   };
 
   return (

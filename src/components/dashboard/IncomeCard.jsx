@@ -13,7 +13,7 @@ const IncomeCard = ({ color, icon, text, price }) => {
       <h1 className="text-2xl font-bold">{text}</h1>
       <div className="flex gap-2 items-center">
         <h1 className="text-2xl font-bold">₹</h1>
-        <h1 className="text-2xl font-bold">{price}</h1>
+        <h1 className="text-2xl font-bold">{Math.ceil(price)}</h1>
       </div>
     </div>
   );

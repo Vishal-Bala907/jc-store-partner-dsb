@@ -174,3 +174,12 @@ export const getStoreCompletedOrders = async (id, page) => {
     throw err;
   }
 };
+export const getBikeRiderById = async (id) => {
+  try {
+    const response = await apiClient.get(`/api/rider/get-rider/by-id/${id}`);
+    // console.log(response);
+    return response.data;
+  } catch (err) {
+    throw err;
+  }
+};
