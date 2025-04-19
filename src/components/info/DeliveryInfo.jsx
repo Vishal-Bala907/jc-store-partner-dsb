@@ -8,7 +8,7 @@ const DeliveryInfo = ({ delivery }) => {
   }
 
   const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleString();
+    return dateString ? new Date(dateString).toLocaleString() : "N/A";
   };
   return (
     <div className="bg-white grow  border rounded-lg p-6 h-fit ">
@@ -17,32 +17,35 @@ const DeliveryInfo = ({ delivery }) => {
       </h2>
       <div className="space-y-2 flex flex-row gap-2 flex-wrap">
         <p className="p-2 border rounded-md hover:bg-orange-200 hover:font-bold transition-all">
-          <span className="font-medium">Delivery ID:</span> {delivery.orderId}
+          <span className="font-medium">Delivery ID:</span>{" "}
+          {delivery?.orderId ?? "N/A"}
         </p>
         <p className="p-2 border rounded-md hover:bg-orange-200 hover:font-bold transition-all">
-          <span className="font-medium">Store ID:</span> {delivery.storeId}
+          <span className="font-medium">Store ID:</span>{" "}
+          {delivery?.storeId ?? "N/A"}
         </p>
         <p className="p-2 border rounded-md hover:bg-orange-200 hover:font-bold transition-all">
-          <span className="font-medium">Rider ID:</span> {delivery.bikeRiderId}
+          <span className="font-medium">Rider ID:</span>{" "}
+          {delivery?.bikeRiderId ?? "N/A"}
         </p>
         <p className="p-2 border rounded-md hover:bg-orange-200 hover:font-bold transition-all">
-          <span className="font-medium">Amount:</span> ₹{delivery.amount}
+          <span className="font-medium">Amount:</span> ₹ {delivery?.amount ?? 0}
         </p>
         <p className="p-2 border rounded-md hover:bg-orange-200 hover:font-bold transition-all">
           <span className="font-medium">Delivery Assigned:</span>{" "}
-          {formatDate(delivery.orderAssignTime)}
+          {formatDate(delivery?.orderAssignTime)}
         </p>
         <p className="p-2 border rounded-md hover:bg-orange-200 hover:font-bold transition-all">
           <span className="font-medium">Delivery Completed:</span>{" "}
-          {formatDate(delivery.orderCompletionTime)}
+          {formatDate(delivery?.orderCompletionTime)}
         </p>
         <p className="p-2 border rounded-md hover:bg-orange-200 hover:font-bold transition-all">
           <span className="font-medium">Created At:</span>{" "}
-          {formatDate(delivery.createdAt)}
+          {formatDate(delivery?.createdAt)}
         </p>
         <p className="p-2 border rounded-md hover:bg-orange-200 hover:font-bold transition-all">
           <span className="font-medium">Updated At:</span>{" "}
-          {formatDate(delivery.updatedAt)}
+          {formatDate(delivery?.updatedAt)}
         </p>
         <p className="p-2 border rounded-md flex items-center hover:bg-orange-200 hover:font-bold transition-all">
           <span className="font-medium">Status:</span>
@@ -51,7 +54,7 @@ const DeliveryInfo = ({ delivery }) => {
               delivery.status ? "bg-green-500" : "bg-red-500"
             }`}
           >
-            {delivery.status ? "Completed" : "Pending"}
+            {delivery?.status ? "Completed" : "Pending"}
           </span>
         </p>
       </div>

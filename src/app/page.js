@@ -2,19 +2,44 @@
 import { Button, Card, TextField } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { loginStorePartner } from "../server/routes";
+import { loginStorePartner, verifyFirst } from "../server/routes";
 import { toast } from "react-toastify";
 import UpdateSpinner from "../components/spinners/UpdateSpinner";
+// import { error } from "console";
 
 export default function Home() {
   const router = useRouter();
   useEffect(() => {
     const user = localStorage.getItem("jc-store-partner");
-    const USER = JSON.stringify(user);
-    console.log(USER);
+    const USER = JSON.parse(user);
+
+    if (USER) {
+      const id = USER.partner._id;
+      if (id) {
+        const response = verifyFirst(id)
+          .then((res) => {
+            router.push("/dashboard");
+            console.log(res);
+          })
+          .catch((error) => {
+            if (error.response.status === 401) {
+              localStorage.removeItem("jc-store-partner");
+              toast.error("User is not verified, Please Login Again...");
+            } else if (error.response.status === 404) {
+              localStorage.removeItem("jc-store-partner");
+              toast.error("User is not found, Please Login Again...");
+            } else {
+              toast.error("Something went wrong, Please Login Again...");
+            }
+          });
+      } else {
+        toast.error("Invalid Id, Please Login Again...");
+        return;
+      }
+    }
 
     if (user) {
-      router.push("/dashboard");
+      // router.push("/dashboard");
     }
   });
   const [loading, setLoading] = useState(false);

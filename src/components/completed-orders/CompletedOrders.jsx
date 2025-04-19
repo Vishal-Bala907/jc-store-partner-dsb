@@ -133,7 +133,7 @@ const CompletedOrders = () => {
                       : "bg-red-200"
                   }`}
                   onClick={() => {
-                    console.log(order);
+                    // console.log(order);
 
                     setOrderInfo({
                       order: order.order,
@@ -142,10 +142,10 @@ const CompletedOrders = () => {
                       bikeRiderId: order.deliveries[0].bikeRiderId,
                       cart: order.order.cart,
                     });
-                    console.log(order.deliveries[0]);
-                    // console.log(order.order.cart);
-                    console.log(order.order.user_info);
-                    console.log(order.order);
+                    // console.log(order.deliveries[0]);
+                    // // console.log(order.order.cart);
+                    // console.log(order.order.user_info);
+                    // console.log(order.order);
                   }}
                 >
                   <td className="px-5 py-3">{order.order.invoice}</td>

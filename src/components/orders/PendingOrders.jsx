@@ -158,14 +158,6 @@ const PendingOrders = () => {
             <GoDotFill className="text-yellow-300" />
             Pending
           </span>
-          {/* <span className="flex flex-row items-center">
-            <GoDotFill className="text-blue-300" />
-            Processing
-          </span>
-          <span className="flex flex-row items-center">
-            <GoDotFill className="text-red-300" />
-            Cancled
-          </span> */}
         </div>
       </div>
       <table className="bg-white rounded-lg shadow-md min-w-full overflow-hidden">
@@ -201,14 +193,14 @@ const PendingOrders = () => {
                   : "bg-red-200"
               }`}
             >
-              <td className="px-5 py-3">{order.invoice}</td>
+              <td className="px-5 py-3">{order?.invoice ?? "N/A"}</td>
               <td className="px-5 py-3">
                 {formatDataAndTime(order.createdAt)}
               </td>
-              <td className="px-5 py-3">{order.user_info.name}</td>
-              <td className="px-5 py-3">{order.paymentMethod}</td>
-              <td className="px-5 py-3">{order.total}</td>
-              <td className="px-5 py-3">{order.status}</td>
+              <td className="px-5 py-3">{order?.user_info.name ?? "N/A"}</td>
+              <td className="px-5 py-3">{order?.paymentMethod ?? "N/A"}</td>
+              <td className="px-5 py-3">{order?.total ?? "N/A"}</td>
+              <td className="px-5 py-3">{order?.status ?? "N/A"}</td>
               <td className="px-5 py-3">{order.riderName || "Not Assigned"}</td>
               <td className="px-5 py-3">
                 <Select
@@ -222,7 +214,7 @@ const PendingOrders = () => {
                 >
                   {riders.map((rider) => (
                     <MenuItem key={rider._id} value={rider._id}>
-                      {rider.fullName}
+                      {rider?.fullName ?? "N/A"}
                     </MenuItem>
                   ))}
                 </Select>

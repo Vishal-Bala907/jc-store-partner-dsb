@@ -18,39 +18,42 @@ const OrderInfo = ({ order }) => {
       </h2>
       <div className="space-y-2 flex flex-row gap-2 flex-wrap ">
         <p className="p-2 border rounded-md hover:bg-blue-200 hover:font-bold transition-all">
-          <span className="font-medium">Invoice No:</span> {order.invoice}
+          <span className="font-medium">Invoice No:</span> {order?.invoice ?? 0}
         </p>
         <p className="p-2 border rounded-md hover:bg-blue-200 hover:font-bold transition-all">
-          <span className="font-medium">Status:</span> {order.status}
+          <span className="font-medium">Status:</span> {order?.status ?? "N/A"}
         </p>
         <p className="p-2 border rounded-md hover:bg-blue-200 hover:font-bold transition-all">
-          <span className="font-medium">Total Amount:</span> ₹{order.total}
+          <span className="font-medium">Total Amount:</span> ₹
+          {order?.total ?? 0}
         </p>
         <p className="p-2 border rounded-md hover:bg-blue-200 hover:font-bold transition-all">
-          <span className="font-medium">Sub Total:</span> ₹{order.subTotal}
+          <span className="font-medium">Sub Total:</span> ₹
+          {order?.subTotal ?? 0}
         </p>
         <p className="p-2 border rounded-md hover:bg-blue-200 hover:font-bold transition-all">
-          <span className="font-medium">Discount:</span> ₹{order.discount}
+          <span className="font-medium">Discount:</span> ₹{order?.discount ?? 0}
         </p>
         <p className="p-2 border rounded-md hover:bg-blue-200 hover:font-bold transition-all">
           <span className="font-medium">Shipping Cost:</span> ₹
-          {order.shippingCost}
+          {order?.shippingCost ?? 0}
         </p>
 
         <p className="p-2 border rounded-md hover:bg-blue-200 hover:font-bold transition-all">
           <span className="font-medium">Payment Method:</span>{" "}
-          {order.paymentMethod}
+          {order?.paymentMethod ?? "N/A"}
         </p>
         <p className="p-2 border rounded-md hover:bg-blue-200 hover:font-bold transition-all">
-          <span className="font-medium">Rider Name:</span> {order.riderName}
+          <span className="font-medium">Rider Name:</span>{" "}
+          {order?.riderName ?? "N/A"}
         </p>
         <p className="p-2 border rounded-md hover:bg-blue-200 hover:font-bold transition-all">
           <span className="font-medium">Order Created:</span>{" "}
-          {formatDate(order.createdAt)}
+          {order?.createdAt ? formatDate(order.createdAt) : "N/A"}
         </p>
         <p className="p-2 border rounded-md hover:bg-blue-200 hover:font-bold transition-all">
           <span className="font-medium">Last Updated:</span>{" "}
-          {formatDate(order.updatedAt)}
+          {order?.updatedAt ? formatDate(order.updatedAt) : "N/A"}
         </p>
       </div>
     </div>

@@ -105,7 +105,7 @@ const OrderTable = () => {
   return (
     <div className="mx-10 my-5 overflow-x-auto">
       <div className="flex flex-row justify-between gap-4 mb-3 items-center">
-        <div>All Orders For The Pincode : {store.pinCode}</div>
+        <div>All Orders For The Pincode : {store?.pinCode}</div>
         <div className="flex flex-row gap-4">
           <span className="flex flex-row items-center">
             <GoDotFill className="text-green-300" /> Deliverd
@@ -140,7 +140,7 @@ const OrderTable = () => {
         <tbody>
           {orders.map((order, index) => (
             <tr
-              key={order.invoice}
+              key={order?.invoice ?? Math.random()}
               className={`border-b text-black ${
                 order.status === "Pending"
                   ? "bg-yellow-100"
@@ -151,15 +151,17 @@ const OrderTable = () => {
                   : "bg-red-200"
               }`}
             >
-              <td className="px-5 py-3">{order.invoice}</td>
+              <td className="px-5 py-3">{order?.invoice ?? "N/A"}</td>
               <td className="px-5 py-3">
                 {formatDataAndTime(order.createdAt)}
               </td>
-              <td className="px-5 py-3">{order.user_info.name}</td>
-              <td className="px-5 py-3">{order.paymentMethod}</td>
-              <td className="px-5 py-3">{order.total}</td>
-              <td className="px-5 py-3">{order.status}</td>
-              <td className="px-5 py-3">{order.riderName || "Not Assigned"}</td>
+              <td className="px-5 py-3">{order?.user_info?.name ?? "N/A"}</td>
+              <td className="px-5 py-3">{order.paymentMethod ?? "N/A"}</td>
+              <td className="px-5 py-3">{order.total ?? "N/A"}</td>
+              <td className="px-5 py-3">{order.status ?? "N/A"}</td>
+              <td className="px-5 py-3">
+                {order?.riderName || "Not Assigned"}
+              </td>
               <td className="px-5 py-3">
                 <Select
                   onChange={(e) =>

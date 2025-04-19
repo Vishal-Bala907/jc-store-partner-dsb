@@ -34,44 +34,21 @@ const BikeRiderInfo = ({ bikeRiderId }) => {
       </h2>
       <div className="space-y-2 flex flex-row gap-2 flex-wrap">
         <p className="p-2 border rounded-md hover:bg-red-200 hover:font-bold transition-all">
-          <span className="font-medium">Full Name:</span> {rider.fullName}
+          <span className="font-medium">Full Name:</span>{" "}
+          {rider?.fullName ?? "N/A"}
         </p>
         <p className="p-2 border rounded-md hover:bg-red-200 hover:font-bold transition-all">
-          <span className="font-medium">Username:</span> {rider.username}
+          <span className="font-medium">Username:</span>{" "}
+          {rider?.username ?? "N/A"}
         </p>
         <p className="p-2 border rounded-md hover:bg-red-200 hover:font-bold transition-all">
-          <span className="font-medium">Phone Number:</span> {rider.phoneNumber}
+          <span className="font-medium">Phone Number:</span>{" "}
+          {rider?.phoneNumber ?? "N/A"}
         </p>
         <p className="p-2 border rounded-md hover:bg-red-200 hover:font-bold transition-all">
-          <span className="font-medium">Email:</span> {rider.email}
+          <span className="font-medium">Email:</span> {rider?.email ?? "N/A"}
         </p>
-        {/* <p className="p-2 border rounded-md">
-          <span className="font-medium">Aadhar Number:</span>{" "}
-          {rider.aadharNumber}
-        </p>
-        <p className="p-2 border rounded-md">
-          <span className="font-medium">PAN Number:</span> {rider.panNumber}
-        </p>
-        <p className="p-2 border rounded-md">
-          <span className="font-medium">Bike License:</span>{" "}
-          {rider.bikeLicenceNumber}
-        </p> */}
-        {/* <p className="p-2 border rounded-md flex items-center">
-          <span className="font-medium">Status:</span>
-          <span
-            className={`ml-2 px-3 py-1 rounded-full text-white text-sm ${
-              rider.status ? "bg-green-500" : "bg-red-500"
-            }`}
-          >
-            {rider.status ? "Active" : "Inactive"}
-          </span>
-        </p> */}
       </div>
-      {/* <h3 className="text-lg font-semibold text-gray-700 mt-4">Address</h3>
-      <div className="p-2 border rounded-md">
-        {rider.address.street}, {rider.address.city}, {rider.address.state} -{" "}
-        {rider.address.postalCode}
-      </div> */}
     </div>
   );
 };

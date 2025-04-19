@@ -14,17 +14,18 @@ const UserInfo = ({ user }) => {
       </h2>
       <div className="space-y-2 flex flex-row gap-2 flex-wrap">
         <p className="p-2 border rounded-md hover:bg-pink-200 hover:font-bold transition-all">
-          <span className="font-medium">Name:</span> {user.name}
+          <span className="font-medium">Name:</span> {user?.name ?? "N/A"}
         </p>
         <p className="p-2 border rounded-md hover:bg-pink-200 hover:font-bold transition-all">
-          <span className="font-medium">Email:</span> {user.email}
+          <span className="font-medium">Email:</span> {user?.email ?? "N/A"}
         </p>
         <p className="p-2 border rounded-md hover:bg-pink-200 hover:font-bold transition-all">
-          <span className="font-medium">Contact:</span> {user.contact}
+          <span className="font-medium">Contact:</span> {user?.contact ?? "N/A"}
         </p>
         <p className="p-2 border rounded-md hover:bg-pink-200 hover:font-bold transition-all">
-          <span className="font-medium">Address:</span> {user.address},{" "}
-          {user.city}, {user.zipCode}, {user.country}
+          <span className="font-medium">Address:</span> {user?.address ?? "N/A"}
+          , {user?.city ?? "N/A"}, {user?.zipCode ?? "N/A"},{" "}
+          {user?.country ?? "N/A"}
         </p>
       </div>
     </div>

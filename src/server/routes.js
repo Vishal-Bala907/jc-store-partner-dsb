@@ -183,3 +183,23 @@ export const getBikeRiderById = async (id) => {
     throw err;
   }
 };
+export const verifyFirst = async (id) => {
+  try {
+    const response = await apiClient.get(`/api/partners/partner/verify/${id}`);
+    return response.data;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const updateRiderPassword = async (id, password) => {
+  try {
+    const response = await apiClient.put(
+      `/api/partners/partner/reset-rider-pass/${id}`,
+      password
+    );
+    return response.data;
+  } catch (err) {
+    throw err;
+  }
+};
