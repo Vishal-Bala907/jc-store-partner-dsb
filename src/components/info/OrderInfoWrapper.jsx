@@ -6,6 +6,7 @@ import DeliveryInfo from "./DeliveryInfo";
 import BikeRiderInfo from "./BikeRiderInfo";
 import Cart from "./Cart";
 import { IoMdArrowRoundBack } from "react-icons/io";
+import OrderedBy from "./OrderedBy";
 
 const OrderInfoWrapper = ({ orderInfo, setOrderInfo }) => {
   // useEffect(() => {
@@ -33,7 +34,9 @@ const OrderInfoWrapper = ({ orderInfo, setOrderInfo }) => {
       <div className="flex md:flex-row flex-col gap-5 justify-center">
         <DeliveryInfo delivery={orderInfo.delivery} />
         <BikeRiderInfo bikeRiderId={orderInfo.bikeRiderId} />
+        <OrderedBy orderedBy={orderInfo.orderedBy} />
       </div>
+
       <div className="w-full">
         <Cart cart={orderInfo.cart} />
       </div>

@@ -141,7 +141,10 @@ const CompletedOrders = () => {
                       user: order.order.user_info,
                       bikeRiderId: order.deliveries[0].bikeRiderId,
                       cart: order.order.cart,
+                      orderedBy: order.order.orderedBy,
                     });
+                    console.log(order.order.orderedBy);
+
                     // console.log(order.deliveries[0]);
                     // // console.log(order.order.cart);
                     // console.log(order.order.user_info);

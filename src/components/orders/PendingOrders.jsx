@@ -166,6 +166,8 @@ const PendingOrders = () => {
             <th className="px-5 py-3">Invoice No</th>
             <th className="px-5 py-3">Order Time</th>
             <th className="px-5 py-3">Customer Name</th>
+            <th className="px-5 py-3">Placed By</th>
+            <th className="px-5 py-3">Email</th>
             <th className="px-5 py-3">Payment Method</th>
             <th className="px-5 py-3">Amount </th>
             <th className="px-5 py-3 flex flex-row gap-3 justify-center items-center">
@@ -198,10 +200,16 @@ const PendingOrders = () => {
                 {formatDataAndTime(order.createdAt)}
               </td>
               <td className="px-5 py-3">{order?.user_info.name ?? "N/A"}</td>
+              <td className="px-5 py-3">
+                {order?.orderedBy?.role.toUpperCase() ?? "N/A"}
+              </td>
+              <td className="px-5 py-3">{order?.orderedBy?.email ?? "N/A"}</td>
               <td className="px-5 py-3">{order?.paymentMethod ?? "N/A"}</td>
               <td className="px-5 py-3">{order?.total ?? "N/A"}</td>
               <td className="px-5 py-3">{order?.status ?? "N/A"}</td>
-              <td className="px-5 py-3">{order.riderName || "Not Assigned"}</td>
+              <td className="px-5 py-3">
+                {order?.riderName || "Not Assigned"}
+              </td>
               <td className="px-5 py-3">
                 <Select
                   onChange={(e) =>
