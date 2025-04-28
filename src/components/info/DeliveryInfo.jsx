@@ -54,7 +54,7 @@ const DeliveryInfo = ({ delivery }) => {
               delivery.status ? "bg-green-500" : "bg-red-500"
             }`}
           >
-            {delivery?.status ? "Completed" : "Pending"}
+            {delivery?.status ? "Completed" : "Cancled"}
           </span>
         </p>
       </div>

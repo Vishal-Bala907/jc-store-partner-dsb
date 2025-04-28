@@ -17,7 +17,7 @@ const OrderInfoWrapper = ({ orderInfo, setOrderInfo }) => {
   //   };
   // }, []);
   return (
-    <div className="flex md:flex-col flex-col justify-center my-5 gap-3 md:mx-10 mx-0">
+    <div className="flex md:flex-col flex-col justify-center my-5 gap-3 md:mx-10 mx-0 text-black">
       <div>
         <IoMdArrowRoundBack
           className="hover:cursor-pointer"
@@ -32,7 +32,7 @@ const OrderInfoWrapper = ({ orderInfo, setOrderInfo }) => {
         <UserInfo user={orderInfo.user} />
       </div>
       <div className="flex md:flex-row flex-col gap-5 justify-center">
-        <DeliveryInfo delivery={orderInfo.delivery} />
+        {/* <DeliveryInfo delivery={orderInfo.delivery} /> */}
         <BikeRiderInfo bikeRiderId={orderInfo.bikeRiderId} />
         <OrderedBy orderedBy={orderInfo.orderedBy} />
       </div>

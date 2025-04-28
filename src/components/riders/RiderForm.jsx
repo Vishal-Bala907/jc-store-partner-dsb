@@ -104,6 +104,8 @@ const RiderForm = () => {
           });
         })
         .catch((err) => {
+          console.log(err);
+
           toast.error(err.response.data.message, {
             position: "top-center",
           });
@@ -163,7 +165,6 @@ const RiderForm = () => {
       label: "Full Name",
       type: "text",
       placeholder: "Enter your full name",
-      pattern: "^[a-zA-Z ]{3,50}$",
     },
     {
       name: "phoneNumber",
@@ -191,7 +192,6 @@ const RiderForm = () => {
       label: "PAN Number",
       type: "text",
       placeholder: "Enter your PAN number",
-      pattern: "^[A-Z]{5}[0-9]{4}[A-Z]{1}$",
     },
     {
       name: "bikeLicenceNumber",
@@ -233,7 +233,7 @@ const RiderForm = () => {
       {loading ? (
         <div>Loading....</div>
       ) : (
-        <div className="max-w-3xl mx-auto px-4 py-8">
+        <div className="max-w-3xl mx-auto px-4 py-8 text-black">
           <div className="bg-white shadow-lg rounded-lg overflow-hidden">
             <div className="bg-customPink px-6 py-4">
               <h2 className="text-xl font-bold text-white">

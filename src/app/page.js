@@ -92,7 +92,7 @@ export default function Home() {
               fullWidth
               onClick={handleLogin}
             >
-              {loading ? <UpdateSpinner /> : <p>Update Profile</p>}
+              {loading ? <UpdateSpinner /> : <p>Login</p>}
             </Button>
           </form>
         </Card>

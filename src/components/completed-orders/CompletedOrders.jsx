@@ -143,7 +143,7 @@ const CompletedOrders = () => {
                       cart: order.order.cart,
                       orderedBy: order.order.orderedBy,
                     });
-                    console.log(order.order.orderedBy);
+                    // console.log(order.order.orderedBy);
 
                     // console.log(order.deliveries[0]);
                     // // console.log(order.order.cart);
