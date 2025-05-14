@@ -16,10 +16,13 @@ export default function Home() {
     if (USER) {
       const id = USER.partner._id;
       if (id) {
-        const response = verifyFirst(id)
+        verifyFirst(id)
           .then((res) => {
+            localStorage.setItem(
+              "jc-store-partner",
+              JSON.stringify(res.partner)
+            );
             router.push("/dashboard");
-            console.log(res);
           })
           .catch((error) => {
             if (error.response.status === 401) {
@@ -41,7 +44,7 @@ export default function Home() {
     if (user) {
       // router.push("/dashboard");
     }
-  });
+  }, []);
   const [loading, setLoading] = useState(false);
 
   const [email, setEmail] = useState("");

@@ -13,7 +13,7 @@ const NotFoundPage = ({ message }) => {
         className="w-64 h-64 md:w-80 md:h-80"
       />
       <Typography variant="h4" className="text-gray-800 font-bold mt-4">
-        404 - {message}
+        {message}
       </Typography>
       <Button
         variant="contained"

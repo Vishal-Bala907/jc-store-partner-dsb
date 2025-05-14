@@ -32,7 +32,7 @@ const OrderInfoWrapper = ({ orderInfo, setOrderInfo }) => {
         <UserInfo user={orderInfo.user} />
       </div>
       <div className="flex md:flex-row flex-col gap-5 justify-center">
-        {/* <DeliveryInfo delivery={orderInfo.delivery} /> */}
+        <DeliveryInfo delivery={orderInfo.delivery} />
         <BikeRiderInfo bikeRiderId={orderInfo.bikeRiderId} />
         <OrderedBy orderedBy={orderInfo.orderedBy} />
       </div>

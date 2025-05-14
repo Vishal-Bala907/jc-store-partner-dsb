@@ -8,6 +8,8 @@ import ScaleLoaderSpinner from "../spinners/ScaleLoaderSpinner";
 
 import { GoDotFill } from "react-icons/go";
 import NotFoundPage from "../not-found/NotFoundPage";
+import PincodesBar from "../pincodes/PincodesBar";
+import PendingOrderInfo from "../info/PendingOrderInfo";
 const OrderTable = () => {
   const [orders, setOrders] = useState([]);
   const [riders, setRiders] = useState([]);
@@ -16,6 +18,9 @@ const OrderTable = () => {
   const [loading, setLoading] = useState(false);
   const limit = 5; // Number of records per page
   const [store, setStore] = useState(null);
+  const [pincodes, setPincodes] = useState([]);
+  const [selectedPincode, setSelectedPincode] = useState("");
+  const [viewOrderDetails, setViewOrderDetails] = useState(null);
 
   const router = useRouter();
   // console.log(page);
@@ -23,30 +28,62 @@ const OrderTable = () => {
   useEffect(() => {
     const user = localStorage.getItem("jc-store-partner");
     if (user) {
-      setLoading(true);
       const USER = JSON.parse(user);
-      setStore(USER.partner);
-      fetchOrders(USER.partner.pinCode, page)
-        .then((data) => {
-          console.log(data.orders);
+      const partner = USER.partner;
 
-          setOrders(data.orders);
-          setTotalPages(data.totalPages);
-          setRiders(USER.partner.riders);
-        })
-        .catch((err) => {
-          console.error(err);
-          toast.error(err.response.data.message);
-        })
-        .finally(() => {
-          setLoading(false);
-        });
+      setStore(partner);
+      setPincodes([...(partner.additionalPincode || [])]);
+      setSelectedPincode(partner.pinCode);
+      setRiders(partner.riders);
     } else {
       toast.warn("Please login first");
       router.push("/");
     }
-  }, [page]); // Fetch orders whenever the page changes
+  }, []);
 
+  useEffect(() => {
+    // const user = localStorage.getItem("jc-store-partner");
+    // if (user) {
+    if (selectedPincode === "") return;
+    setLoading(true);
+    //   const USER = JSON.parse(user);
+    //   setStore(USER.partner);
+    fetchOrders(selectedPincode, page)
+      .then((data) => {
+        console.log(data.orders);
+
+        setOrders(data.orders);
+        setTotalPages(data.totalPages);
+        // setRiders(USER.partner.riders);
+        // setPincodes(USER.partner.additionalPincode || []);
+        // setSelectedPincode(USER.partner.pinCode);
+      })
+      .catch((err) => {
+        console.error(err);
+        if (err.status === 404) {
+          toast.error("No Orders Found");
+          setOrders([]);
+          // setTotalPages(data.totalPages);
+        } else {
+          toast.error(err.response?.data?.message || "Failed to fetch orders");
+        }
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+    // } else {
+    //   toast.warn("Please login first");
+    //   router.push("/");
+    // }
+  }, [selectedPincode, page]); // Fetch orders whenever the page changes
+
+  const handlePincodeChange = useCallback(
+    (value) => {
+      setSelectedPincode(value);
+      setPage(1); // Reset to first page when pincode changes
+    },
+    [selectedPincode]
+  );
   const handleRiderAssignment = useCallback(
     async (riderId, orderId) => {
       const user = localStorage.getItem("jc-store-partner");
@@ -99,13 +136,29 @@ const OrderTable = () => {
   }
 
   if (!orders || orders.length === 0) {
-    return <NotFoundPage message="No orders found" />;
+    return (
+      <div>
+        <PincodesBar
+          pincodes={pincodes}
+          handlePincodeChange={handlePincodeChange}
+          selectedPincode={selectedPincode}
+        />
+        <NotFoundPage message="No pending orders found" />;
+      </div>
+    );
   }
 
   return (
-    <div className="mx-10 my-5 overflow-x-auto">
+    <div className="mx-10 my-5 overflow-x-auto relative">
       <div className="flex flex-row justify-between gap-4 mb-3 items-center">
-        <div>All Orders For The Pincode : {store?.pinCode}</div>
+        <div>
+          {" "}
+          <PincodesBar
+            pincodes={pincodes}
+            handlePincodeChange={handlePincodeChange}
+            selectedPincode={selectedPincode}
+          />
+        </div>
         <div className="flex flex-row gap-4">
           <span className="flex flex-row items-center">
             <GoDotFill className="text-green-300" /> Deliverd
@@ -152,6 +205,9 @@ const OrderTable = () => {
                   ? "bg-green-100"
                   : "bg-red-200"
               }`}
+              onClick={() => {
+                setViewOrderDetails(order);
+              }}
             >
               <td className="px-5 py-3">{order?.invoice ?? "N/A"}</td>
               <td className="px-5 py-3">
@@ -230,6 +286,13 @@ const OrderTable = () => {
           Next
         </button>
       </div>
+
+      {viewOrderDetails && (
+        <PendingOrderInfo
+          order={viewOrderDetails}
+          setViewOrderDetails={setViewOrderDetails}
+        />
+      )}
     </div>
   );
 };

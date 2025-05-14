@@ -1,6 +1,6 @@
 "use client";
 // import React from "react";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { use, useCallback, useEffect, useState } from "react";
 import { Select, MenuItem } from "@mui/material";
 import {
   assignOrderToRider,
@@ -15,6 +15,8 @@ import ScaleLoaderSpinner from "../spinners/ScaleLoaderSpinner";
 import { RiArrowLeftRightLine } from "react-icons/ri";
 import { GoDotFill } from "react-icons/go";
 import NotFoundPage from "../not-found/NotFoundPage";
+import PincodesBar from "../pincodes/PincodesBar";
+import PendingOrderInfo from "../info/PendingOrderInfo";
 const PendingOrders = () => {
   const [orders, setOrders] = useState([]);
   const [riders, setRiders] = useState([]);
@@ -23,37 +25,61 @@ const PendingOrders = () => {
   const [loading, setLoading] = useState(false);
   const [arrange, setArrange] = useState(0);
   const [store, setStore] = useState(null);
+  const [pincodes, setPincodes] = useState([]);
+  const [selectedPincode, setSelectedPincode] = useState("");
   const limit = 5; // Number of records per page
-
+  const [viewOrderDetails, setViewOrderDetails] = useState(null);
   const router = useRouter();
   // console.log(page);
-
+  // Load user and set initial state
   useEffect(() => {
     const user = localStorage.getItem("jc-store-partner");
     if (user) {
-      setLoading(true);
       const USER = JSON.parse(user);
-      setStore(USER.partner);
-      fetchPendingOrders(USER.partner.pinCode, page)
-        .then((data) => {
-          // console.log(data.totalPages);
+      const partner = USER.partner;
 
-          setOrders(data.orders);
-          setTotalPages(data.totalPages);
-          setRiders(USER.partner.riders);
-        })
-        .catch((err) => {
-          console.error(err);
-          toast.error(err.response.data.message);
-        })
-        .finally(() => {
-          setLoading(false);
-        });
+      setStore(partner);
+      setPincodes([...(partner.additionalPincode || [])]);
+      setSelectedPincode(partner.pinCode);
+      setRiders(partner.riders);
     } else {
       toast.warn("Please login first");
       router.push("/");
     }
-  }, [page]); // Fetch orders whenever the page changes
+  }, []);
+
+  // Fetch orders when selected pincode or page changes
+  useEffect(() => {
+    if (!selectedPincode) return;
+
+    setLoading(true);
+    fetchPendingOrders(selectedPincode, page)
+      .then((data) => {
+        setOrders(data.orders);
+        setTotalPages(data.totalPages);
+      })
+      .catch((err) => {
+        console.error(err);
+        if (err.status === 404) {
+          toast.error("No Orders Found");
+          setOrders([]);
+          // setTotalPages(data.totalPages);
+        } else {
+          toast.error(err.response?.data?.message || "Failed to fetch orders");
+        }
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [selectedPincode, page]);
+
+  const handlePincodeChange = useCallback(
+    (value) => {
+      setSelectedPincode(value);
+      setPage(1); // Reset to first page when pincode changes
+    },
+    [selectedPincode]
+  );
 
   // const handleStatusChange = (id, invoice, newStatus) => {
   //   const status = { status: newStatus };
@@ -71,6 +97,7 @@ const PendingOrders = () => {
   //       toast.error("Something went wrong...");
   //     });
   // };
+  // console.log(pincodes);
 
   const handleRiderAssignment = useCallback(
     async (riderId, orderId) => {
@@ -90,6 +117,11 @@ const PendingOrders = () => {
               })
               .catch((err) => {
                 console.error(err);
+                if (err.status === 404) {
+                  toast.error("No Orders Found");
+                  setOrders([]);
+                  // setTotalPages(data.totalPages);
+                }
                 toast.error(err.response.data.message);
               }); // Refresh orders
           })
@@ -143,13 +175,28 @@ const PendingOrders = () => {
   }
 
   if (!orders || orders.length === 0) {
-    return <NotFoundPage message="No pending orders found" />;
+    return (
+      <div>
+        <PincodesBar
+          pincodes={pincodes}
+          handlePincodeChange={handlePincodeChange}
+          selectedPincode={selectedPincode}
+        />
+        <NotFoundPage message="No pending orders found" />;
+      </div>
+    );
   }
 
   return (
-    <div className="mx-10 my-5 overflow-x-auto">
+    <div className="mx-10 my-5 overflow-x-auto relative">
       <div className="flex flex-row justify-between gap-4 mb-3 items-center">
-        <div>Processing/Pending Orders For The Pincode : {store.pinCode}</div>
+        <div>
+          <PincodesBar
+            pincodes={pincodes}
+            handlePincodeChange={handlePincodeChange}
+            selectedPincode={selectedPincode}
+          />
+        </div>
         <div className="flex flex-row gap-4">
           <span className="flex flex-row items-center">
             <GoDotFill className="text-green-300" /> Deliverd
@@ -194,6 +241,9 @@ const PendingOrders = () => {
                   ? "bg-green-100"
                   : "bg-red-200"
               }`}
+              onClick={() => {
+                setViewOrderDetails(order);
+              }}
             >
               <td className="px-5 py-3">{order?.invoice ?? "N/A"}</td>
               <td className="px-5 py-3">
@@ -272,6 +322,12 @@ const PendingOrders = () => {
           Next
         </button>
       </div>
+      {viewOrderDetails && (
+        <PendingOrderInfo
+          order={viewOrderDetails}
+          setViewOrderDetails={setViewOrderDetails}
+        />
+      )}
     </div>
   );
 };
